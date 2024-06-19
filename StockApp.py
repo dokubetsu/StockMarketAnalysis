@@ -20,19 +20,7 @@ def calculate_rsi(data, window=14):
     
     return rsi
 
-def predict_future_prices(model, input_data, num_days):
-    predictions = []
-    last_sequence = input_data[-model.input.shape[1]:].reshape(1, -1, 1)
-    
-    for _ in range(num_days):
-        prediction = model.predict(last_sequence)
-        predictions.append(prediction[0, 0])
-        last_sequence = np.roll(last_sequence, -1)
-        last_sequence[-1, -1] = prediction
-    
-    return predictions
-
-st.title('Stock Price Prediction with Moving Averages and RSI')
+st.title('Stock Price Analysis')
 
 user_input = st.text_input('Enter Stock Ticker', 'SBIN.NS')
 stock = yf.Ticker(user_input)
